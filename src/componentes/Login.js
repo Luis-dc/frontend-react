@@ -6,19 +6,29 @@ const Login = ({ onLogin }) => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://18.219.186.24:3000/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
+        try {
+            const response = await fetch('http://18.219.186.24:3000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-        const data = await response.json();
-        if (data.token) {
-            onLogin(data.token, data.userId); // Asumiendo que el ID del usuario se envía junto con el token
-        } else {
-            alert(data.message);
+            const data = await response.json();
+            if (response.ok) { // Asegúrate de que la respuesta sea OK
+                if (data.token) {
+                    localStorage.setItem('token', data.token); // Guardar el token en localStorage
+                    onLogin(data.token, data.userId); // Pasar el token y ID del usuario
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } else {
+                alert('Error: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+            alert('Hubo un error al intentar iniciar sesión.');
         }
     };
 

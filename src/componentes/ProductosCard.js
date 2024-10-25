@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ProductosCard = ({ producto, onSelect }) => {
+const ProductosCard = ({ producto, onSelect, onAgregar }) => {
     return (
         <div className="card h-100 shadow-sm">
             <img src={producto.imagen_url} className="card-img-top" alt={producto.nombre} />
@@ -10,11 +10,12 @@ const ProductosCard = ({ producto, onSelect }) => {
                 <p className="card-text">{producto.descripcion}</p>
                 <p className="card-text">Precio: Q{producto.precio}</p>
                 <p className="card-text">Stock: {producto.stock}</p>
-                {onSelect && ( // Mostrar el botón solo si onSelect está definido
+                {onSelect && (
                     <button className="btn btn-primary" onClick={() => onSelect(producto)}>
                         Seleccionar
                     </button>
                 )}
+                <button className="btn btn-success" onClick={onAgregar}>Agregar al Carrito</button> {/* Botón para agregar al carrito */}
             </div>
         </div>
     );

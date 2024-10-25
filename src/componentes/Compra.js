@@ -20,9 +20,7 @@ const Purchase = ({ token, productoSeleccionado }) => {
             const response = await fetch('http://18.219.186.24:3000/api/comprar', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
+                    'Content-Type': 'application/json','Authorization': `Bearer ${token}`},
                 body: JSON.stringify({
                     total: productoSeleccionado.precio * cantidad, // Calcular el total según la cantidad
                     direccion_envio,

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductosCard from './ProductosCard';
+import { useCarrito } from '../context/CarritoContext'; // Asegúrate de importar useCarrito
 
 const Catalogo = ({ onSelectProduct }) => {
     const [productos, setProductos] = useState([]);
+    const { agregarAlCarrito } = useCarrito(); // Usa el contexto del carrito
 
     useEffect(() => {
         const fetchProductos = async () => {
@@ -26,7 +28,8 @@ const Catalogo = ({ onSelectProduct }) => {
                     <div key={producto.id_producto} className="col-sm-6 col-md-4 col-lg-3 mb-4">
                         <ProductosCard 
                             producto={producto} 
-                            onSelect={() => onSelectProduct(producto)} // Asegúrate de que esto esté presente
+                            //onSelect={() => onSelectProduct(producto)} 
+                            onAgregar={() => agregarAlCarrito(producto)} // Agregar al carrito
                         />
                     </div>
                 ))}
